@@ -3,7 +3,12 @@ import axios from 'axios';
 import TeacherContext from './teacherContext';
 import teacherReducer from './teacherReducer';
 
-import { GET_TEACHERS, GET_TEACHER_BY_NAME, ADD_TEACHER } from '../types';
+import {
+	GET_TEACHERS,
+	GET_TEACHER_BY_NAME,
+	ADD_TEACHER,
+	ADD_RATING,
+} from '../types';
 
 const TeacherState = (props) => {
 	const initialState = {
@@ -55,6 +60,27 @@ const TeacherState = (props) => {
 		}
 	};
 
+	// Add Rating
+	const addRating = async (name, formData) => {
+		const config = {
+			header: {
+				'Content-Type': 'application/json',
+			},
+		};
+
+		try {
+			const res = await axios.put(
+				`/api/teachers/${name}/rate`,
+				formData,
+				config
+			);
+			console.log('Updated');
+			dispatch({ type: ADD_RATING, payload: res.data });
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	return (
 		<TeacherContext.Provider
 			value={{
@@ -64,6 +90,7 @@ const TeacherState = (props) => {
 				getTeachers,
 				getTeacherByName,
 				addTeacher,
+				addRating,
 			}}
 		>
 			{props.children}

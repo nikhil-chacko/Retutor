@@ -57,6 +57,7 @@ router.put('/:tname/rate', async (req, res) => {
 			teacher.rating =
 				(teacher.rating + req.body.rating) / teacher.totalRatings;
 		}
+		console.log('Updated');
 		await teacher.save();
 		res.json(teacher);
 	} catch (error) {

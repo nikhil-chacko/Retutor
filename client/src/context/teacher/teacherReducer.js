@@ -1,4 +1,9 @@
-import { GET_TEACHERS, GET_TEACHER_BY_NAME, ADD_TEACHER } from '../types';
+import {
+	GET_TEACHERS,
+	GET_TEACHER_BY_NAME,
+	ADD_TEACHER,
+	ADD_RATING,
+} from '../types';
 
 export default (state, action) => {
 	switch (action.type) {
@@ -15,6 +20,11 @@ export default (state, action) => {
 				loading: false,
 			};
 		case ADD_TEACHER:
+			return {
+				...state,
+				loading: false,
+			};
+		case ADD_RATING:
 			return {
 				...state,
 				loading: false,
