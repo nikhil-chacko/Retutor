@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import TeacherContext from '../context/teacher/teacherContext';
 import { useParams } from 'react-router-dom';
 import { Skeleton } from '@material-ui/lab';
@@ -7,7 +7,6 @@ import {
 	Paper,
 	makeStyles,
 	Typography,
-	Button,
 	FormControl,
 	InputLabel,
 	Select,
@@ -49,8 +48,8 @@ function TeacherProfile() {
 		console.log(tName);
 		console.log(loading);
 		console.log(teacher);
-		console.log('Use effect');
-	}, [teacher]);
+		// eslint-disable-next-line
+	}, [loading]);
 
 	const handleChange = (event) => {
 		setAge(event.target.value);
@@ -103,8 +102,7 @@ function TeacherProfile() {
 								onClose={handleClose}
 								onOpen={handleOpen}
 								value={age}
-								onChange={handleChange}
-							>
+								onChange={handleChange}>
 								<MenuItem value=''>
 									<em>None</em>
 								</MenuItem>

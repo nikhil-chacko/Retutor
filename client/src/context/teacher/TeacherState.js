@@ -3,13 +3,20 @@ import axios from 'axios';
 import TeacherContext from './teacherContext';
 import teacherReducer from './teacherReducer';
 
-import { GET_TEACHERS, GET_TEACHER_BY_NAME, ADD_TEACHER } from '../types';
+import {
+	GET_TEACHERS,
+	GET_TEACHER_BY_NAME,
+	ADD_TEACHER,
+	FILTER_TEACHERS,
+	CLEAR_FILTER,
+} from '../types';
 
 const TeacherState = (props) => {
 	const initialState = {
 		teachers: [],
 		teacher: {},
 		loading: true,
+		filtered: null,
 	};
 
 	const [state, dispatch] = useReducer(teacherReducer, initialState);
@@ -55,17 +62,30 @@ const TeacherState = (props) => {
 		}
 	};
 
+	// Filter Teachers
+	const filterTeachers = (text) => {
+		console.log('filterState ' + text);
+		dispatch({ type: FILTER_TEACHERS, payload: text });
+	};
+
+	// Clear Filter
+	const clearFilter = () => {
+		dispatch({ type: CLEAR_FILTER });
+	};
+
 	return (
 		<TeacherContext.Provider
 			value={{
 				teachers: state.teachers,
 				loading: state.loading,
 				teacher: state.teacher,
+				filtered: state.filtered,
+				filterTeachers,
+				clearFilter,
 				getTeachers,
 				getTeacherByName,
 				addTeacher,
-			}}
-		>
+			}}>
 			{props.children}
 		</TeacherContext.Provider>
 	);

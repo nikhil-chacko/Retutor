@@ -1,4 +1,10 @@
-import { GET_TEACHERS, GET_TEACHER_BY_NAME, ADD_TEACHER } from '../types';
+import {
+	GET_TEACHERS,
+	GET_TEACHER_BY_NAME,
+	ADD_TEACHER,
+	FILTER_TEACHERS,
+	CLEAR_FILTER,
+} from '../types';
 
 export default (state, action) => {
 	switch (action.type) {
@@ -18,6 +24,22 @@ export default (state, action) => {
 			return {
 				...state,
 				loading: false,
+			};
+		case FILTER_TEACHERS:
+			return {
+				...state,
+				filtered: state.teachers.filter((teacher) => {
+					const regex = new RegExp(`${action.payload}`, 'gi');
+					return (
+						teacher.teacherName.match(regex) ||
+						teacher.fullName.match(regex)
+					);
+				}),
+			};
+		case CLEAR_FILTER:
+			return {
+				...state,
+				filtered: null,
 			};
 		default:
 			return state;
