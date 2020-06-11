@@ -13,6 +13,7 @@ const useStyles = makeStyles({
 
 const TeacherSearch = () => {
 	const classes = useStyles();
+
 	const text = useRef('');
 
 	const teacherContext = useContext(TeacherContext);

@@ -28,6 +28,7 @@ export default (state, action) => {
 		case FILTER_TEACHERS:
 			return {
 				...state,
+				//create a new regexp then try to match the passed payload with teacherName and fullName and set it to the filtered state
 				filtered: state.teachers.filter((teacher) => {
 					const regex = new RegExp(`${action.payload}`, 'gi');
 					return (
