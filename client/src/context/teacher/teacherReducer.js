@@ -30,7 +30,9 @@ export default (state, action) => {
 				...state,
 				//create a new regexp then try to match the passed payload with teacherName and fullName and set it to the filtered state
 				filtered: state.teachers.filter((teacher) => {
+					//regex
 					const regex = new RegExp(`${action.payload}`, 'gi');
+					//match functions
 					return (
 						teacher.teacherName.match(regex) ||
 						teacher.fullName.match(regex)
