@@ -1,4 +1,6 @@
 import React, { useContext, useEffect } from 'react';
+import TeacherSearh from './TeacherSearch';
+
 import Card from './Card';
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -21,7 +23,8 @@ const TeacherPage = () => {
 
 	useEffect(() => {
 		getTeachers();
-		console.log('Use effect');
+
+		// eslint-disable-next-line
 	}, []);
 
 	const classes = useStyles();
@@ -30,10 +33,12 @@ const TeacherPage = () => {
 			<Grid item>
 				<NavBar />
 			</Grid>
+			<Grid item>
+				<TeacherSearh />
+			</Grid>
 			<Grid container direction='row' className={classes.content}>
 				<Grid item xs={1} /> {/*padding*/}
-				<Grid container xs={10} spacing={1}>
-					{console.log(loading)}
+				<Grid container spacing={1}>
 					{!loading && teachers.length > 0 ? (
 						teachers.map((teacher) => (
 							<Grid
@@ -41,8 +46,7 @@ const TeacherPage = () => {
 								xs={10}
 								md={6}
 								key={teacher._id}
-								className={classes.centerDiv}
-							>
+								className={classes.centerDiv}>
 								<Card
 									institution={teacher.institution}
 									teacherName={teacher.teacherName}
@@ -57,32 +61,28 @@ const TeacherPage = () => {
 								item
 								xs={10}
 								md={6}
-								className={classes.centerDiv}
-							>
+								className={classes.centerDiv}>
 								<Skeleton variant='rect' height={200} />
 							</Grid>
 							<Grid
 								item
 								xs={10}
 								md={6}
-								className={classes.centerDiv}
-							>
+								className={classes.centerDiv}>
 								<Skeleton variant='rect' height={200} />
 							</Grid>
 							<Grid
 								item
 								xs={10}
 								md={6}
-								className={classes.centerDiv}
-							>
+								className={classes.centerDiv}>
 								<Skeleton variant='rect' height={200} />
 							</Grid>
 							<Grid
 								item
 								xs={10}
 								md={6}
-								className={classes.centerDiv}
-							>
+								className={classes.centerDiv}>
 								<Skeleton variant='rect' height={200} />
 							</Grid>
 						</Grid>

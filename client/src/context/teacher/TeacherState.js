@@ -8,6 +8,8 @@ import {
 	GET_TEACHER_BY_NAME,
 	ADD_TEACHER,
 	ADD_RATING,
+	FILTER_TEACHERS,
+	CLEAR_FILTER,
 } from '../types';
 
 const TeacherState = (props) => {
@@ -15,6 +17,7 @@ const TeacherState = (props) => {
 		teachers: [],
 		teacher: {},
 		loading: true,
+		filtered: null,
 	};
 
 	const [state, dispatch] = useReducer(teacherReducer, initialState);
@@ -80,6 +83,16 @@ const TeacherState = (props) => {
 			console.log(error);
 		}
 	};
+	// Filter Teachers
+	const filterTeachers = (text) => {
+		console.log('filterState ' + text);
+		dispatch({ type: FILTER_TEACHERS, payload: text });
+	};
+
+	// Clear Filter
+	const clearFilter = () => {
+		dispatch({ type: CLEAR_FILTER });
+	};
 
 	return (
 		<TeacherContext.Provider
@@ -87,6 +100,9 @@ const TeacherState = (props) => {
 				teachers: state.teachers,
 				loading: state.loading,
 				teacher: state.teacher,
+				filtered: state.filtered,
+				filterTeachers,
+				clearFilter,
 				getTeachers,
 				getTeacherByName,
 				addTeacher,
