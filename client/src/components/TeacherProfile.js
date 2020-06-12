@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import TeacherContext from '../context/teacher/teacherContext';
 import { useParams } from 'react-router-dom';
 import { Skeleton } from '@material-ui/lab';
@@ -7,10 +7,8 @@ import {
 	Paper,
 	makeStyles,
 	Typography,
-	FormControl,
-	InputLabel,
-	Select,
-	MenuItem,
+	Slider,
+	Button,
 } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -36,12 +34,11 @@ const useStyles = makeStyles((theme) => ({
 
 function TeacherProfile() {
 	const teacherContext = useContext(TeacherContext);
-	const { teacher, getTeacherByName, loading } = teacherContext;
-
-	const [age, setAge] = React.useState('');
-	const [open, setOpen] = React.useState(false);
+	const { teacher, getTeacherByName, loading, addRating } = teacherContext;
 
 	const { tName } = useParams();
+
+	const [rating, setRating] = useState(0);
 
 	useEffect(() => {
 		getTeacherByName(tName);
@@ -51,16 +48,17 @@ function TeacherProfile() {
 		// eslint-disable-next-line
 	}, [loading]);
 
-	const handleChange = (event) => {
-		setAge(event.target.value);
+	const handleChange = (e, newValue) => {
+		setRating(newValue);
+		console.log(rating);
 	};
 
-	const handleClose = () => {
-		setOpen(false);
-	};
-
-	const handleOpen = () => {
-		setOpen(true);
+	const onSubmit = (e) => {
+		e.preventDefault();
+		console.log('Saved');
+		addRating(tName, {
+			rating,
+		});
 	};
 
 	const classes = useStyles();
@@ -91,33 +89,27 @@ function TeacherProfile() {
 							Total Ratings: {teacher.totalRatings}
 						</Typography>{' '}
 						<br />
-						<FormControl className={classes.formControl}>
-							<InputLabel id='demo-controlled-open-select-label'>
-								Rating
-							</InputLabel>
-							<Select
-								labelId='demo-controlled-open-select-label'
-								id='demo-controlled-open-select'
-								open={open}
-								onClose={handleClose}
-								onOpen={handleOpen}
-								value={age}
-								onChange={handleChange}>
-								<MenuItem value=''>
-									<em>None</em>
-								</MenuItem>
-								<MenuItem value={1}>1</MenuItem>
-								<MenuItem value={2}>2</MenuItem>
-								<MenuItem value={3}>3</MenuItem>
-								<MenuItem value={4}>4</MenuItem>
-								<MenuItem value={5}>5</MenuItem>
-								<MenuItem value={6}>6</MenuItem>
-								<MenuItem value={7}>7</MenuItem>
-								<MenuItem value={8}>8</MenuItem>
-								<MenuItem value={9}>9</MenuItem>
-								<MenuItem value={10}>10</MenuItem>
-							</Select>
-						</FormControl>
+						<form
+							className={classes.formControl}
+							onSubmit={onSubmit}
+						>
+							<Slider
+								value={rating}
+								onChange={handleChange}
+								aria-labelledby='discrete-slider-small-steps'
+								step={1}
+								min={0}
+								max={10}
+								valueLabelDisplay='on'
+							/>
+							<Button
+								type='submit'
+								color='primary'
+								variant='contained'
+							>
+								Save
+							</Button>
+						</form>
 					</div>
 				</Paper>
 			) : (

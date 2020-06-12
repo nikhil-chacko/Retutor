@@ -1,2 +1,3 @@
-# Retutor
-*A integrated social Platform for both teachers and students.*
+# Retutor v2
+
+_An integrated social Platform for both teachers and students._
