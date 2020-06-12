@@ -19,12 +19,6 @@ const TeacherSearch = () => {
 	const teacherContext = useContext(TeacherContext);
 	const { filtered, filterTeachers, clearFilter } = teacherContext;
 
-	useEffect(() => {
-		if (filtered === null) {
-			text.current.value = '';
-		}
-	});
-
 	const onChange = (e) => {
 		console.log('onChange');
 		if (text.current.value !== '') {

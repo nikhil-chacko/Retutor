@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import TeacherContext from '../context/teacher/teacherContext';
 import { useParams } from 'react-router-dom';
 import { Skeleton } from '@material-ui/lab';
@@ -7,8 +7,8 @@ import {
 	Paper,
 	makeStyles,
 	Typography,
-	FormControl,
 	Slider,
+	Button,
 } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -47,10 +47,6 @@ function TeacherProfile() {
 		console.log(teacher);
 		// eslint-disable-next-line
 	}, [loading]);
-
-	const handleChange = (event) => {
-		setAge(event.target.value);
-	};
 
 	const handleChange = (e, newValue) => {
 		setRating(newValue);
