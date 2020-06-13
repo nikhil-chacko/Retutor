@@ -3,6 +3,7 @@ import {
 	GET_TEACHER_BY_NAME,
 	ADD_TEACHER,
 	ADD_RATING,
+	ADD_COMMENT,
 	FILTER_TEACHERS,
 	CLEAR_FILTER,
 } from '../types';
@@ -27,6 +28,11 @@ export default (state, action) => {
 				loading: false,
 			};
 		case ADD_RATING:
+			return {
+				...state,
+				loading: false,
+			};
+		case ADD_COMMENT:
 			return {
 				...state,
 				loading: false,

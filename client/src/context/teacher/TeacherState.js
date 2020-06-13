@@ -8,6 +8,7 @@ import {
 	GET_TEACHER_BY_NAME,
 	ADD_TEACHER,
 	ADD_RATING,
+	ADD_COMMENT,
 	FILTER_TEACHERS,
 	CLEAR_FILTER,
 } from '../types';
@@ -83,6 +84,28 @@ const TeacherState = (props) => {
 			console.log(error);
 		}
 	};
+
+	// Add Comment
+	const addComment = async (name, formData) => {
+		const config = {
+			header: {
+				'Content-Type': 'application/json',
+			},
+		};
+
+		try {
+			const res = await axios.put(
+				`/api/teachers/${name}/comment`,
+				formData,
+				config
+			);
+			console.log('Updated');
+			dispatch({ type: ADD_COMMENT, payload: res.data });
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	// Filter Teachers
 	const filterTeachers = (text) => {
 		console.log('filterState ' + text);
@@ -107,8 +130,8 @@ const TeacherState = (props) => {
 				getTeacherByName,
 				addTeacher,
 				addRating,
-			}}
-		>
+				addComment,
+			}}>
 			{props.children}
 		</TeacherContext.Provider>
 	);
