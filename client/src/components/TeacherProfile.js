@@ -9,6 +9,7 @@ import {
 	Typography,
 	Slider,
 	Button,
+	TextField,
 } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -34,11 +35,18 @@ const useStyles = makeStyles((theme) => ({
 
 function TeacherProfile() {
 	const teacherContext = useContext(TeacherContext);
-	const { teacher, getTeacherByName, loading, addRating } = teacherContext;
+	const {
+		teacher,
+		getTeacherByName,
+		loading,
+		addRating,
+		addComment,
+	} = teacherContext;
 
 	const { tName } = useParams();
 
 	const [rating, setRating] = useState(0);
+	const [comment, setComment] = useState('');
 
 	useEffect(() => {
 		getTeacherByName(tName);
@@ -48,9 +56,13 @@ function TeacherProfile() {
 		// eslint-disable-next-line
 	}, [loading]);
 
-	const handleChange = (e, newValue) => {
+	const handleRating = (e, newValue) => {
 		setRating(newValue);
 		console.log(rating);
+	};
+	const handleComment = (e) => {
+		setComment(e.target.value);
+		console.log(comment);
 	};
 
 	const onSubmit = (e) => {
@@ -58,6 +70,9 @@ function TeacherProfile() {
 		console.log('Saved');
 		addRating(tName, {
 			rating,
+		});
+		addComment(tName, {
+			comment,
 		});
 	};
 
@@ -91,22 +106,29 @@ function TeacherProfile() {
 						<br />
 						<form
 							className={classes.formControl}
-							onSubmit={onSubmit}
-						>
+							onSubmit={onSubmit}>
 							<Slider
 								value={rating}
-								onChange={handleChange}
+								onChange={handleRating}
 								aria-labelledby='discrete-slider-small-steps'
 								step={1}
 								min={0}
 								max={10}
 								valueLabelDisplay='on'
 							/>
+							<TextField
+								id='filled-multiline-flexible'
+								label='Comment'
+								rowsMax={5}
+								value={comment}
+								onChange={handleComment}
+								variant='filled'
+								fullWidth
+							/>
 							<Button
 								type='submit'
 								color='primary'
-								variant='contained'
-							>
+								variant='contained'>
 								Save
 							</Button>
 						</form>

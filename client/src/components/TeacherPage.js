@@ -38,7 +38,7 @@ const TeacherPage = () => {
 			</Grid>
 			<Grid container direction='row' className={classes.content}>
 				<Grid item xs={1} /> {/*padding*/}
-				<Grid container spacing={1}>
+				<Grid container xs={10} spacing={1}>
 					{!loading && teachers.length > 0 ? (
 						teachers.map((teacher) => (
 							<Grid
