@@ -32,7 +32,7 @@ router.get('/:tname', async (req, res) => {
 router.post('/addTeacher', async (req, res) => {
 	const { teacherName, fullName, institution } = req.body;
 
-	const newTeacher = await new Teacher({
+	const newTeacher = new Teacher({
 		teacherName,
 		fullName,
 		institution,
