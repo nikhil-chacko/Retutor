@@ -51,8 +51,8 @@ passport.use(
 // @route   GET /api/oauth/logout
 // @desc    Logout User
 // @access  PUBLIC
-router.get('/api/logout', (req, res) => {
-	req.logOut();
+router.get('/logout', (req, res) => {
+	req.logout();
 	res.send(req.user);
 });
 
