@@ -6,6 +6,8 @@ const config = require('config');
 // Import User Model
 const User = require('../models/User');
 
+var user = {};
+
 // Serialize User
 passport.serializeUser(async (user, done) => {
 	done(null, user.id);
@@ -28,7 +30,8 @@ passport.use(
 		},
 		async (accessToken, refreshToken, profile, done) => {
 			// Callback Function
-			console.log(profile);
+			user = { ...profile };
+			console.log(user);
 			const currentUser = await User.findOne({ googleID: profile.id });
 			if (currentUser) {
 				console.log(
@@ -71,6 +74,13 @@ router.get(
 // @access  PUBLIC
 router.get('/google/callback', passport.authenticate('google'), (req, res) => {
 	res.send('Redirected');
+});
+
+// @route   GET /api/oauth/user
+// @desc    Get Authenticated User Data
+// @access  PUBLIC
+router.get('/user', (req, res) => {
+	res.send(user);
 });
 
 module.exports = router;
