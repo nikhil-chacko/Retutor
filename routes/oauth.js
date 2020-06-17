@@ -56,7 +56,7 @@ router.get('/logout', (req, res) => {
 	res.send(req.user);
 });
 
-// @route   GET /oapi/auth/google
+// @route   GET /api/oauth/google
 // @desc    Login with Google
 // @access  PUBLIC
 router.get(
