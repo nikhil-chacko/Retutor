@@ -1,7 +1,10 @@
-export default (req, res, next) => {
+// Auth Middleware
+const auth = (req, res, next) => {
 	if (!req.user) {
-		res.status(401).json({ msg: 'Not Authenticated' });
+		res.send('Not Authenticated');
 	} else {
 		next();
 	}
 };
+
+module.exports = auth;
