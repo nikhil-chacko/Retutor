@@ -13,21 +13,21 @@ const useStyles = makeStyles({
 
 const TeacherSearch = () => {
 	const classes = useStyles();
-
+	const teacherContext = useContext(TeacherContext);
 	const text = useRef('');
 
-	const teacherContext = useContext(TeacherContext);
 	const { filtered, filterTeachers, clearFilter } = teacherContext;
 
-	// useEffect(() => {
-	// 	console.log(text.current.value);
-	// 	if (filtered === null) {
-	// 		text.current.value = '';
-	// 	}
-	// }, []);
+	useEffect(() => {
+		console.log('I am in Use Effect');
+		if (filtered === null) {
+			text.current.value = '';
+		}
+	}, [filtered]);
 
 	const onChange = (e) => {
-		if (text.current.value !== '') {
+		console.log('onChange' + e.target.value);
+		if (e.target.value !== '') {
 			filterTeachers(e.target.value);
 		} else {
 			clearFilter();

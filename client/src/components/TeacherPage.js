@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from 'react';
-import TeacherSearh from './TeacherSearch';
+import React, { useContext, useEffect, Fragment } from 'react';
+import TeacherSearch from './TeacherSearch';
 
 import Card from './Card';
 import { Grid } from '@material-ui/core';
@@ -19,7 +19,7 @@ const useStyles = makeStyles({
 
 const TeacherPage = () => {
 	const teacherContext = useContext(TeacherContext);
-	const { teachers, getTeachers, loading } = teacherContext;
+	const { teachers, getTeachers, loading, filtered } = teacherContext;
 
 	useEffect(() => {
 		getTeachers();
@@ -34,27 +34,53 @@ const TeacherPage = () => {
 				<NavBar />
 			</Grid>
 			<Grid item>
-				<TeacherSearh />
+				<TeacherSearch />
 			</Grid>
 			<Grid container direction='row' className={classes.content}>
 				<Grid item xs={1} /> {/*padding*/}
 				<Grid container xs={10} spacing={1}>
 					{!loading && teachers.length > 0 ? (
-						teachers.map((teacher) => (
-							<Grid
-								item
-								xs={10}
-								md={6}
-								key={teacher._id}
-								className={classes.centerDiv}>
-								<Card
-									institution={teacher.institution}
-									teacherName={teacher.teacherName}
-									fullName={teacher.fullName}
-									rating={teacher.rating}
-								/>
-							</Grid>
-						))
+						<Fragment>
+							{filtered !== null
+								? filtered.map((teacher) => (
+										<Grid
+											item
+											xs={10}
+											md={6}
+											key={teacher._id}
+											className={classes.centerDiv}>
+											<Card
+												institution={
+													teacher.institution
+												}
+												teacherName={
+													teacher.teacherName
+												}
+												fullName={teacher.fullName}
+												rating={teacher.rating}
+											/>
+										</Grid>
+								  ))
+								: teachers.map((teacher) => (
+										<Grid
+											item
+											xs={10}
+											md={6}
+											key={teacher._id}
+											className={classes.centerDiv}>
+											<Card
+												institution={
+													teacher.institution
+												}
+												teacherName={
+													teacher.teacherName
+												}
+												fullName={teacher.fullName}
+												rating={teacher.rating}
+											/>
+										</Grid>
+								  ))}
+						</Fragment>
 					) : (
 						<Grid container spacing={2}>
 							<Grid
