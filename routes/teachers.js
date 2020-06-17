@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../middleware/auth');
 
 // Get Teacher Model
 const Teacher = require('../models/Teacher');
@@ -29,7 +30,7 @@ router.get('/:tname', async (req, res) => {
 // @route   POST /api/teachers/addTeacher
 // @desc    Add New Teacher
 // @access  PRIVATE
-router.post('/addTeacher', async (req, res) => {
+router.post('/addTeacher', auth, async (req, res) => {
 	const { teacherName, fullName, institution } = req.body;
 
 	const newTeacher = new Teacher({
@@ -44,7 +45,7 @@ router.post('/addTeacher', async (req, res) => {
 // @route   PUT /api/teachers/:tname/rate
 // @desc    Update Rating
 // @access  PRIVATE
-router.put('/:tname/rate', async (req, res) => {
+router.put('/:tname/rate', auth, async (req, res) => {
 	try {
 		const teacher = await Teacher.findOne({
 			teacherName: req.params.tname,
@@ -68,7 +69,7 @@ router.put('/:tname/rate', async (req, res) => {
 // @route   PUT /api/teachers/:tname/comment
 // @desc    Update Comments
 // @access  PRIVATE
-router.put('/:tname/comment', async (req, res) => {
+router.put('/:tname/comment', auth, async (req, res) => {
 	try {
 		const teacher = await Teacher.findOne({
 			teacherName: req.params.tname,

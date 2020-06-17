@@ -38,16 +38,6 @@ function AddTeacher(props) {
 
 	const { teacherName, fullName, institution } = teacher;
 
-	useEffect(
-		() => {
-			if (!loading) {
-				props.history.push('/teachers');
-			}
-		},
-		//eslint-disable-next-line
-		[loading, props.history]
-	);
-
 	const onChange = (e) => {
 		setTeacher({
 			...teacher,
@@ -70,8 +60,7 @@ function AddTeacher(props) {
 		<Container
 			component='main'
 			maxWidth='xs'
-			className={classes.formContainer}
-		>
+			className={classes.formContainer}>
 			<div className={classes.paper}>
 				<Typography component='h1' variant='h5' color='secondary'>
 					Add New Teacher
@@ -116,8 +105,7 @@ function AddTeacher(props) {
 						fullWidth
 						variant='contained'
 						color='primary'
-						className={classes.submit}
-					>
+						className={classes.submit}>
 						Add Teacher
 					</Button>
 				</form>
