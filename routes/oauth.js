@@ -56,7 +56,8 @@ passport.use(
 // @access  PUBLIC
 router.get('/logout', (req, res) => {
 	req.logout();
-	res.send(req.user);
+	user = {};
+	res.send('Logged Out');
 });
 
 // @route   GET /api/oauth/google
@@ -73,7 +74,7 @@ router.get(
 // @desc    Redirect After Login
 // @access  PUBLIC
 router.get('/google/callback', passport.authenticate('google'), (req, res) => {
-	res.send('Redirected');
+	res.redirect('http://localhost:3000');
 });
 
 // @route   GET /api/oauth/user
