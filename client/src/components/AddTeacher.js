@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, TextField, Typography, Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import TeacherContext from '../context/teacher/teacherContext';
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 function AddTeacher(props) {
 	const teacherContext = useContext(TeacherContext);
 
-	const { addTeacher, loading } = teacherContext;
+	const { addTeacher } = teacherContext;
 
 	const [teacher, setTeacher] = useState({
 		teacherName: '',
